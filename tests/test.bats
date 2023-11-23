@@ -36,8 +36,8 @@ teardown() {
 @test "install from release" {
   set -eu -o pipefail
   cd ${TESTDIR} || ( printf "unable to cd to ${TESTDIR}\n" && exit 1 )
-  echo "# ddev get tag1-consulting/ddev-gander with project ${PROJNAME} in ${TESTDIR} ($(pwd))" >&3
-  ddev get tag1-consulting/ddev-gander
+  echo "# ddev get tag1consulting/ddev-gander with project ${PROJNAME} in ${TESTDIR} ($(pwd))" >&3
+  ddev get tag1consulting/ddev-gander
   ddev restart >/dev/null
   health_checks
 }
