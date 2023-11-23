@@ -1,9 +1,9 @@
 setup() {
   set -eu -o pipefail
   export DIR="$( cd "$( dirname "$BATS_TEST_FILENAME" )" >/dev/null 2>&1 && pwd )/.."
-  export TESTDIR=~/tmp/test-addon-template
+  export TESTDIR=~/tmp/test-gander
   mkdir -p $TESTDIR
-  export PROJNAME=test-addon-template
+  export PROJNAME=test-gander
   export DDEV_NON_INTERACTIVE=true
   ddev delete -Oy ${PROJNAME} >/dev/null 2>&1 || true
   cd "${TESTDIR}"
@@ -13,15 +13,14 @@ setup() {
 
 health_checks() {
   # Do something useful here that verifies the add-on
-  # ddev exec "curl -s elasticsearch:9200" | grep "${PROJNAME}-elasticsearch"
-  ddev exec "curl -s https://localhost:443/"
+  ddev exec "curl -s grafana:3000 | grep grafana | wc -l"
 }
 
 teardown() {
   set -eu -o pipefail
   cd ${TESTDIR} || ( printf "unable to cd to ${TESTDIR}\n" && exit 1 )
   ddev delete -Oy ${PROJNAME} >/dev/null 2>&1
-  [ "${TESTDIR}" != "" ] && rm -rf ${TESTDIR}
+  [ "${TESTDIR}" != "" ] && rm -rf ${TESTDIR} >/dev/null 2>&1 ||  exit 1
 }
 
 @test "install from directory" {
@@ -36,8 +35,8 @@ teardown() {
 @test "install from release" {
   set -eu -o pipefail
   cd ${TESTDIR} || ( printf "unable to cd to ${TESTDIR}\n" && exit 1 )
-  echo "# ddev get ddev/ddev-addon-template with project ${PROJNAME} in ${TESTDIR} ($(pwd))" >&3
-  ddev get ddev/ddev-addon-template
+  echo "# ddev get ddev/ddev-gander with project ${PROJNAME} in ${TESTDIR} ($(pwd))" >&3
+  ddev get ddev/ddev-gander
   ddev restart >/dev/null
   health_checks
 }
