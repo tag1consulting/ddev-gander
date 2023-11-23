@@ -14,13 +14,14 @@ setup() {
 health_checks() {
   # Do something useful here that verifies the add-on
   ddev exec "curl -s grafana:3000 | grep grafana | wc -l"
+  ddev exec "curl -s otel-collector:4318/v1/traces | grep '405 method not allowed'"
 }
 
 teardown() {
   set -eu -o pipefail
   cd ${TESTDIR} || ( printf "unable to cd to ${TESTDIR}\n" && exit 1 )
   ddev delete -Oy ${PROJNAME} >/dev/null 2>&1
-  [ "${TESTDIR}" != "" ] && rm -rf ${TESTDIR} >/dev/null 2>&1 ||  exit 1
+  [ "${TESTDIR}" != "" ] && rm -rf ${TESTDIR} >/dev/null 2>&1 || true
 }
 
 @test "install from directory" {
@@ -35,8 +36,8 @@ teardown() {
 @test "install from release" {
   set -eu -o pipefail
   cd ${TESTDIR} || ( printf "unable to cd to ${TESTDIR}\n" && exit 1 )
-  echo "# ddev get ddev/ddev-gander with project ${PROJNAME} in ${TESTDIR} ($(pwd))" >&3
-  ddev get ddev/ddev-gander
+  echo "# ddev get tag1-consulting/ddev-gander with project ${PROJNAME} in ${TESTDIR} ($(pwd))" >&3
+  ddev get tag1-consulting/ddev-gander
   ddev restart >/dev/null
   health_checks
 }
