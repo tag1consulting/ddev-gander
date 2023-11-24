@@ -1,4 +1,4 @@
-[![tests](https://github.com/tag1-consulting/ddev-gander/actions/workflows/tests.yml/badge.svg)](https://github.com/tag1-consulting/ddev-gander/actions/workflows/tests.yml) ![project is maintained](https://img.shields.io/maintenance/yes/2024.svg)
+[![tests](https://github.com/tag1consulting/ddev-gander/actions/workflows/tests.yml/badge.svg)](https://github.com/tag1consulting/ddev-gander/actions/workflows/tests.yml) ![project is maintained](https://img.shields.io/maintenance/yes/2024.svg)
 
 # ddev-gander <!-- omit in toc -->
 
