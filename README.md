@@ -2,7 +2,8 @@
 
 # ddev-gander <!-- omit in toc -->
 
-* [What is gander?](#what-is-ddev-addon-template)
+* [What is gander?](#what-is-ddev-gander)
+* [Getting started?](#getting-started)
 
 ## What is Gander?
 
@@ -10,3 +11,19 @@ Gander is a preconfigured Open Telemetry stack relying on Prometheus, Grafana, a
 
 For more information on the phpunit side of things, see https://www.drupal.org/node/3366904
 
+## Getting started
+
+Prerequisites:
+* Install ddev if you haven't already.
+* Enable ddev on your local Drupal project.
+* Ensure you can already run functional JavaScript tests in the ddev environment.
+
+Add Gander and run Drupal's performance tests.
+* ddev add tag1consulting/ddev-gander
+* ddev restart
+* ddev ssh
+* cd web/core
+* To run a single test three times in order to check the Gander installation:
+   ```for run in 1..3; do ../vendor/bin/phpunit profiles/demo_umami/tests/src/FunctionalJavascript/OpenTelemetryNodePagePerformanceTest.php --filter hot; done;```
+* To run all OpenTelemetry tests: ```../vendor/bin/phpunit --group OpenTelemetry```
+* Check the Grafana dashboard via: http://localhost:3000/

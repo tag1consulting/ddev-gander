@@ -61,6 +61,7 @@ project_files:
 - config.gander.yaml
 - docker-compose.gander.yaml
 - otel-collector.yaml
+- phpunit.xml.example
 - gander-shared/
 - gander-dashboards/
 # - extra_files/
