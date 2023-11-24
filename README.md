@@ -22,7 +22,6 @@ Add Gander and run Drupal's performance tests via a git clone of Drupal core:
 * ddev add tag1consulting/ddev-gander
 * ddev restart
 * ddev ssh
-* cd web/core
 * To run a single test three times in order to check the Gander installation: `for run in 1..3; do vendor/bin/phpunit -c core/phpunit.xml profiles/demo_umami/tests/src/FunctionalJavascript/OpenTelemetryNodePagePerformanceTest.php --filter hot; done;`
 * To run all OpenTelemetry tests: `vendor/bin/phpunit -c core/phpunit.xml --group OpenTelemetry`
 * Check the Grafana dashboard via: http://localhost:3000/
