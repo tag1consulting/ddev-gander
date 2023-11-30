@@ -27,3 +27,10 @@ Add Gander and run Drupal's performance tests via a git clone of Drupal core:
 * To run a single test three times in order to check the Gander installation, ensure you're in the document root first: `for run in 1..3; do vendor/bin/phpunit -c core/phpunit.xml profiles/demo_umami/tests/src/FunctionalJavascript/OpenTelemetryNodePagePerformanceTest.php --filter hot; done;`
 * To run all OpenTelemetry tests: `vendor/bin/phpunit -c core/phpunit.xml --group OpenTelemetry`
 * Check the Grafana dashboard via: http://localhost:3000/
+
+
+If you are running on an M1 or M2 Mac, add the following steps to get chromedriver working.
+
+1. `cd .ddev`
+1. `rm docker-compose.chromedriver.yml`
+1. `ddev get ddev/ddev-selenium-standalone-chrome`
