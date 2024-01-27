@@ -18,7 +18,7 @@ For more information on the phpunit side of things, see [the Drupal core change 
 Prerequisites:
 * [Install ddev](https://ddev.readthedocs.io/en/latest/users/install/ddev-installation/) if you haven't already.
 * Enable ddev on your local Drupal project.
-* Ensure you can already run functional JavaScript tests in the ddev environment.
+* Ensure you can already run functional JavaScript tests in the ddev environment. See [Matt Glaman's guide](https://mglaman.dev/blog/running-drupals-functionaljavascript-tests-ddev) or resources (linked from this ddev issue)[https://github.com/ddev/ddev/issues/3578].
 
 Add Gander and run Drupal's performance tests via a git clone of Drupal core:
 * ddev get tag1consulting/ddev-gander
