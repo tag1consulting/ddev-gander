@@ -13,13 +13,25 @@ Gander is a preconfigured Open Telemetry stack relying on Prometheus, Grafana, a
 
 For more information on the phpunit side of things, see [the Drupal core change record](https://www.drupal.org/node/3366904).
 
-## Getting started
 
-Prerequisites:
+## Prerequisites:
 * [Install ddev](https://ddev.readthedocs.io/en/latest/users/install/ddev-installation/) if you haven't already.
 * Enable ddev on your local Drupal project.
-* Ensure you can already run functional JavaScript tests in the ddev environment. See [Matt Glaman's guide](https://mglaman.dev/blog/running-drupals-functionaljavascript-tests-ddev) or [resources linked from this ddev issue](https://github.com/ddev/ddev/issues/3578).
+* Ensure you can already run functional JavaScript tests in the ddev environment. This requires a working chromedriver container as part of your ddev installation. You can run any core functional javascript test without having Gander installed to confirm.
 
+If you are running on an M1 or M2 Mac, add the following steps to get chromedriver working, this may also be the most reliable method on other platforms.
+
+```
+cd .ddev
+rm docker-compose.chromedriver.yml
+ddev get ddev/ddev-selenium-standalone-chrome
+```
+
+Or see [Matt Glaman's guide](https://mglaman.dev/blog/running-drupals-functionaljavascript-tests-ddev) 
+
+And if you have issues with both of these methods, check [resources linked from this ddev issue](https://github.com/ddev/ddev/issues/3578).
+
+## Getting started
 Add Gander and run Drupal's performance tests via a git clone of Drupal core:
 * ddev get tag1consulting/ddev-gander
 * ddev restart
