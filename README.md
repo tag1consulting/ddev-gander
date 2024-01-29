@@ -3,6 +3,7 @@
 # ddev-gander <!-- omit in toc -->
 
 * [What is gander?](#what-is-ddev-gander)
+* [Prerequisites?](#prerequisites)
 * [Getting started?](#getting-started)
 
 ## What is Gander?
