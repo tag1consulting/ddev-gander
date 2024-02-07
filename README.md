@@ -20,23 +20,14 @@ For more information on the phpunit side of things, see [the Drupal core change 
 * Enable ddev on your local Drupal project.
 * Ensure you can already run functional JavaScript tests in the ddev environment. This requires a working chromedriver container as part of your ddev installation. You can run any core functional javascript test without having Gander installed to confirm.
 
-If you are running on an M1 or M2 Mac, add the following steps to get chromedriver working, this may also be the most reliable method on other platforms.
-
-```
-cd .ddev
-rm docker-compose.chromedriver.yml
-ddev get ddev/ddev-selenium-standalone-chrome
-```
-
-Or see [Matt Glaman's guide](https://mglaman.dev/blog/running-drupals-functionaljavascript-tests-ddev) 
-
-And if you have issues with both of these methods, check [resources linked from this ddev issue](https://github.com/ddev/ddev/issues/3578).
+For most use cases, this chrome image should work out of the box:
+```ddev get ddev/ddev-selenium-standalone-chrome```
 
 ## Getting started
 Add Gander and run Drupal's performance tests via a git clone of Drupal core:
-* ddev get tag1consulting/ddev-gander
-* ddev restart
-* ddev ssh
+* `ddev get tag1consulting/ddev-gander`
+* `ddev restart`
+* `ddev ssh`
 * To run a single test three times in order to check the Gander installation, ensure you're in the document root first: `for run in 1..3; do vendor/bin/phpunit -c core/phpunit.xml profiles/demo_umami/tests/src/FunctionalJavascript/OpenTelemetryNodePagePerformanceTest.php --filter hot; done;`
 * To run all OpenTelemetry tests: `vendor/bin/phpunit -c core/phpunit.xml --group OpenTelemetry`
 * Check the Grafana dashboard via: http://localhost:3000/
