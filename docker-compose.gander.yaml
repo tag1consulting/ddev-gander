@@ -15,7 +15,7 @@ services:
     command: [ "-config.file=/etc/tempo.yaml" ]
     volumes:
       - ./gander-shared/tempo.yaml:/etc/tempo.yaml
-      - ./tempo-data:/tmp/tempo
+      - tempo-data:/tmp/tempo
     ports:
       - "14268"  # jaeger ingest
       - "3200"   # tempo
@@ -47,3 +47,6 @@ services:
       - GF_FEATURE_TOGGLES_ENABLE=traceqlEditor
     ports:
       - "3000:3000"
+
+volumes:
+  tempo-data:
