@@ -5,6 +5,7 @@ services:
   # And put them in an OTEL collector pipeline...
   otel-collector:
     image: otel/opentelemetry-collector:0.61.0
+    container_name: ddev-${DDEV_SITENAME}-otel-collector
     command: [ "--config=/etc/otel-collector.yaml" ]
     volumes:
       - ./otel-collector.yaml:/etc/otel-collector.yaml
@@ -12,6 +13,7 @@ services:
   # To eventually offload to Tempo...
   tempo:
     image: grafana/tempo:latest
+    container_name: ddev-${DDEV_SITENAME}-tempo
     command: [ "-config.file=/etc/tempo.yaml" ]
     volumes:
       - ./gander-shared/tempo.yaml:/etc/tempo.yaml
@@ -25,17 +27,25 @@ services:
 
   prometheus:
     image: prom/prometheus:latest
+    container_name: ddev-${DDEV_SITENAME}-prometheus
     command:
       - --config.file=/etc/prometheus.yaml
       - --web.enable-remote-write-receiver
       - --enable-feature=exemplar-storage
     volumes:
       - ./gander-shared/prometheus.yaml:/etc/prometheus.yaml
+    labels:
+      com.ddev.site-name: ${DDEV_SITENAME}
+      com.ddev.approot: $DDEV_APPROOT
+    environment:
+      - VIRTUAL_HOST=$DDEV_HOSTNAME
+      - HTTP_EXPOSE=9090:9090
     ports:
       - "9090"
 
   grafana:
     image: grafana/grafana:latest
+    container_name: ddev-${DDEV_SITENAME}-grafana
     volumes:
       - ./gander-shared/grafana-datasources.yaml:/etc/grafana/provisioning/datasources/datasources.yaml
       - ./gander-shared/grafana-dashboards.yaml:/etc/grafana/provisioning/dashboards/grafana-dashboards.yaml
@@ -45,6 +55,11 @@ services:
       - GF_AUTH_ANONYMOUS_ORG_ROLE=Admin
       - GF_AUTH_DISABLE_LOGIN_FORM=true
       - GF_FEATURE_TOGGLES_ENABLE=traceqlEditor
+      - VIRTUAL_HOST=$DDEV_HOSTNAME
+      - HTTP_EXPOSE=3000:3000
+    labels:
+      com.ddev.site-name: ${DDEV_SITENAME}
+      com.ddev.approot: $DDEV_APPROOT
     ports:
       - "3000"
 
