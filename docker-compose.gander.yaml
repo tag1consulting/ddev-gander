@@ -55,6 +55,7 @@ services:
       - GF_AUTH_ANONYMOUS_ORG_ROLE=Admin
       - GF_AUTH_DISABLE_LOGIN_FORM=true
       - GF_FEATURE_TOGGLES_ENABLE=traceqlEditor
+      - GF_DASHBOARDS_DEFAULT_HOME_DASHBOARD_PATH=/etc/grafana/dashboards/umami.json
       - VIRTUAL_HOST=$DDEV_HOSTNAME
       - HTTP_EXPOSE=3000:3000
     labels:
