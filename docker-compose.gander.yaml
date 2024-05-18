@@ -1,5 +1,4 @@
 #ddev-generated
-version: "3"
 services:
 
   # And put them in an OTEL collector pipeline...
