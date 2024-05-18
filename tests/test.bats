@@ -8,6 +8,7 @@ setup() {
   ddev delete -Oy ${PROJNAME} >/dev/null 2>&1 || true
   cd "${TESTDIR}"
   ddev config --project-name=${PROJNAME}
+  ddev get ddev/ddev-selenium-standalone-chrome
   ddev start -y >/dev/null
 }
 

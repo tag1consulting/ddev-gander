@@ -19,10 +19,7 @@ For more information [check the documentation](https://docs.google.com/document/
 ## Prerequisites:
 * [Install ddev](https://ddev.readthedocs.io/en/latest/users/install/ddev-installation/) if you haven't already.
 * Enable ddev on your local Drupal project.
-* Ensure you can already run functional JavaScript tests in the ddev environment. This requires a working chromedriver container as part of your ddev installation. You can run any core functional javascript test without having Gander installed to confirm.
-
-For most use cases, this chrome image should work out of the box:
-```ddev get ddev/ddev-selenium-standalone-chrome```
+* `ddev get ddev/ddev-selenium-standalone-chrome` to enable functional Javascript tests for DDEV. (`ddev/ddev-selenium-standalone-chrome` is a dependency of this add-on.)
 
 ## Getting started
 Add Gander and run Drupal's performance tests via a git clone of Drupal core (assuming [composer is 
@@ -31,6 +28,6 @@ used](https://www.drupal.org/docs/develop/using-composer/manage-dependencies)):
 * `ddev restart`
 * `ddev ssh`
 * `cd web/`
-* To run a single test three times in order to check the Gander installation, ensure you're in the document root first: `for run in 1..3; do ../vendor/bin/phpunit -c core profiles/demo_umami/tests/src/FunctionalJavascript/OpenTelemetryNodePagePerformanceTest.php --filter hot; done;`
-* To run all OpenTelemetry tests: `../vendor/bin/phpunit -c core --group OpenTelemetry`
+* To run a single test three times in order to check the Gander installation, ensure you're in the document root first: `for run in 1..3; do phpunit -c core profiles/demo_umami/tests/src/FunctionalJavascript/OpenTelemetryNodePagePerformanceTest.php --filter hot; done;`
+* To run all OpenTelemetry tests: `phpunit -c core --group OpenTelemetry`
 * Check the Grafana dashboard via: _http://\<projectname\>.ddev.site:3000/_
