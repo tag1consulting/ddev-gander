@@ -31,6 +31,6 @@ used](https://www.drupal.org/docs/develop/using-composer/manage-dependencies)):
 * `ddev restart`
 * `ddev ssh`
 * `cd web/`
-* To run a single test three times in order to check the Gander installation, ensure you're in the document root first: `for run in 1..3; do ../vendor/bin/phpunit -c core profiles/demo_umami/tests/src/FunctionalJavascript/OpenTelemetryNodePagePerformanceTest.php --filter hot; done;`
-* To run all OpenTelemetry tests: `../vendor/bin/phpunit -c core --group OpenTelemetry`
+* To run a single test three times in order to check the Gander installation, ensure you're in the document root first: `for run in 1..3; do phpunit -c core profiles/demo_umami/tests/src/FunctionalJavascript/OpenTelemetryNodePagePerformanceTest.php --filter hot; done;`
+* To run all OpenTelemetry tests: `phpunit -c core --group OpenTelemetry`
 * Check the Grafana dashboard via: _http://\<projectname\>.ddev.site:3000/_
