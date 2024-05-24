@@ -34,7 +34,7 @@ metrics_generator:
       dimensions:
         - service.version
   storage:
-    path: /tmp/tempo/generator/wal
+    path: /var/tempo/generator/wal
     remote_write:
       - url: http://prometheus:9090/api/v1/write
         send_exemplars: true
@@ -44,9 +44,9 @@ storage:
   trace:
     backend: local                     # backend configuration to use
     wal:
-      path: /tmp/tempo/wal             # where to store the the wal locally
+      path: /var/tempo/wal # where to store the the wal locally
     local:
-      path: /tmp/tempo/blocks
+      path: /var/tempo/blocks
 
 overrides:
   metrics_generator_processors: [service-graphs, span-metrics] # enables metrics generator

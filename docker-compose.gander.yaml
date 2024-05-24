@@ -10,20 +10,32 @@ services:
     volumes:
       - ./otel-collector.yaml:/etc/otel-collector.yaml
 
+  init:
+    image: &tempoImage grafana/tempo:latest
+    user: root
+    entrypoint:
+      - "chown"
+      - "10001:10001"
+      - "/var/tempo"
+    volumes:
+      - ./tempo-data:/var/tempo
+
   # To eventually offload to Tempo...
   tempo:
-    image: grafana/tempo:latest
+    image: *tempoImage
     container_name: ddev-${DDEV_SITENAME}-tempo
     command: [ "-config.file=/etc/tempo.yaml" ]
     volumes:
       - ./gander-shared/tempo.yaml:/etc/tempo.yaml
-      - tempo-data:/tmp/tempo
+      - ./tempo-data:/var/tempo
     ports:
       - "14268"  # jaeger ingest
       - "3200"   # tempo
       - "4317"  # otlp grpc
       - "4318"  # otlp http
       - "9411"   # zipkin
+    depends_on:
+      - init
 
   prometheus:
     image: prom/prometheus:latest
