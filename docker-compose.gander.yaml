@@ -8,7 +8,7 @@ services:
     container_name: ddev-${DDEV_SITENAME}-otel-collector
     command: [ "--config=/etc/otel-collector.yaml" ]
     volumes:
-      - ./otel-collector.yaml:/etc/otel-collector.yaml
+      - ./gander-config/otel-collector.yaml:/etc/otel-collector.yaml
 
   # To eventually offload to Tempo...
   tempo:
@@ -16,14 +16,8 @@ services:
     container_name: ddev-${DDEV_SITENAME}-tempo
     command: [ "-config.file=/etc/tempo.yaml" ]
     volumes:
-      - ./gander-shared/tempo.yaml:/etc/tempo.yaml
+      - ./gander-config/tempo.yaml:/etc/tempo.yaml
       - tempo-data:/tmp/tempo
-    ports:
-      - "14268"  # jaeger ingest
-      - "3200"   # tempo
-      - "4317"  # otlp grpc
-      - "4318"  # otlp http
-      - "9411"   # zipkin
 
   prometheus:
     image: prom/prometheus:latest
@@ -33,7 +27,7 @@ services:
       - --web.enable-remote-write-receiver
       - --enable-feature=exemplar-storage
     volumes:
-      - ./gander-shared/prometheus.yaml:/etc/prometheus.yaml
+      - ./gander-config/prometheus.yaml:/etc/prometheus.yaml
     labels:
       com.ddev.site-name: ${DDEV_SITENAME}
       com.ddev.approot: $DDEV_APPROOT
@@ -41,14 +35,14 @@ services:
       - VIRTUAL_HOST=$DDEV_HOSTNAME
       - HTTP_EXPOSE=9090:9090
     ports:
-      - "9090"
+      - 9090
 
   grafana:
     image: grafana/grafana:latest
     container_name: ddev-${DDEV_SITENAME}-grafana
     volumes:
-      - ./gander-shared/grafana-datasources.yaml:/etc/grafana/provisioning/datasources/datasources.yaml
-      - ./gander-shared/grafana-dashboards.yaml:/etc/grafana/provisioning/dashboards/grafana-dashboards.yaml
+      - ./gander-config/grafana-datasources.yaml:/etc/grafana/provisioning/datasources/datasources.yaml
+      - ./gander-config/grafana-dashboards.yaml:/etc/grafana/provisioning/dashboards/grafana-dashboards.yaml
       - ./gander-dashboards:/etc/grafana/dashboards
     environment:
       - GF_AUTH_ANONYMOUS_ENABLED=true
@@ -62,7 +56,7 @@ services:
       com.ddev.site-name: ${DDEV_SITENAME}
       com.ddev.approot: $DDEV_APPROOT
     ports:
-      - "3000"
+      - 3000
 
 volumes:
   tempo-data:
