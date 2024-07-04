@@ -60,12 +60,9 @@ pre_install_actions:
 project_files:
 - config.gander.yaml
 - docker-compose.gander.yaml
-- otel-collector.yaml
 - phpunit.xml.example
-- gander-shared/
+- gander-config/
 - gander-dashboards/
-# - extra_files/
-# - somefile.sh
 
 # List of files and directories that are copied into the global .ddev directory
 # DDEV environment variables can be interpolated into these filenames
