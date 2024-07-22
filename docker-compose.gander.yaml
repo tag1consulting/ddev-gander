@@ -1,6 +1,18 @@
 #ddev-generated
 services:
 
+  # Tempo runs as user 10001, and docker compose creates the volume as root.
+  # As such, we need to chown the volume in order for Tempo to start correctly.
+  init:
+    image: &tempoImage grafana/tempo:latest
+    user: root
+    entrypoint:
+      - "chown"
+      - "10001:10001"
+      - "/var/tempo"
+    volumes:
+      - tempo-data:/var/tempo
+
   # And put them in an OTEL collector pipeline...
   otel-collector:
     image: otel/opentelemetry-collector:0.61.0
@@ -14,7 +26,7 @@ services:
 
   # To eventually offload to Tempo...
   tempo:
-    image: grafana/tempo:latest
+    image: *tempoImage
     container_name: ddev-${DDEV_SITENAME}-tempo
     command: [ "-config.file=/etc/tempo.yaml" ]
     labels:
@@ -22,7 +34,7 @@ services:
       com.ddev.approot: $DDEV_APPROOT
     volumes:
       - ./gander-config/tempo.yaml:/etc/tempo.yaml
-      - tempo-data:/tmp/tempo
+      - tempo-data:/var/tempo
 
   prometheus:
     image: prom/prometheus:latest
