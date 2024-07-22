@@ -1,5 +1,4 @@
 #ddev-generated
-version: "3"
 services:
 
   # And put them in an OTEL collector pipeline...
@@ -7,6 +6,9 @@ services:
     image: otel/opentelemetry-collector:0.61.0
     container_name: ddev-${DDEV_SITENAME}-otel-collector
     command: [ "--config=/etc/otel-collector.yaml" ]
+    labels:
+      com.ddev.site-name: ${DDEV_SITENAME}
+      com.ddev.approot: $DDEV_APPROOT
     volumes:
       - ./gander-config/otel-collector.yaml:/etc/otel-collector.yaml
 
@@ -15,6 +17,9 @@ services:
     image: grafana/tempo:latest
     container_name: ddev-${DDEV_SITENAME}-tempo
     command: [ "-config.file=/etc/tempo.yaml" ]
+    labels:
+      com.ddev.site-name: ${DDEV_SITENAME}
+      com.ddev.approot: $DDEV_APPROOT
     volumes:
       - ./gander-config/tempo.yaml:/etc/tempo.yaml
       - tempo-data:/tmp/tempo
