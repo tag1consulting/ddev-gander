@@ -25,7 +25,7 @@ For most use cases, this chrome image should work out of the box:
 ```ddev get ddev/ddev-selenium-standalone-chrome```
 
 ## Getting started
-Add Gander and run Drupal's performance tests via a git clone of Drupal core (assuming [composer is 
+Add Gander and run Drupal's performance tests via Drupal core (assuming [composer is 
 used](https://www.drupal.org/docs/develop/using-composer/manage-dependencies)):
 * `ddev get tag1consulting/ddev-gander`
 * `ddev restart`
