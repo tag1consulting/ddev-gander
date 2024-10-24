@@ -10,7 +10,19 @@
 
 [Gander](https://www.tag1consulting.com/gander) is a preconfigured Open Telemetry stack relying on Prometheus, Grafana, and Grafana Tempo.
 
-`ddev get tag1consulting/ddev-gander`, run Drupal core's OpenTelemetry phpunit tests, and immediately see performance metrics and traces in a Grafana dashboard. Or add PerformanceTestBase coverage to an existing project with a few lines of code if you already have phpunit functional test coverage of your project.
+For DDEV v1.23.5 or above run
+
+```sh
+ddev add-on get tag1consulting/ddev-gander
+```
+
+For earlier versions of DDEV run
+
+```sh
+ddev get tag1consulting/ddev-gander
+```
+
+Then run Drupal core's OpenTelemetry phpunit tests, and immediately see performance metrics and traces in a Grafana dashboard. Or add PerformanceTestBase coverage to an existing project with a few lines of code if you already have phpunit functional test coverage of your project.
 
 For more information on the phpunit side of things, see [the Drupal core change record](https://www.drupal.org/node/3366904).
 
