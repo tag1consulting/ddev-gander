@@ -17,7 +17,7 @@ on:
 
 # This is required for "gautamkrishnar/keepalive-workflow"
 permissions:
-  contents: write
+  actions: write
 
 jobs:
   tests:
