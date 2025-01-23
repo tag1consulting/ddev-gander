@@ -26,8 +26,6 @@ Then run Drupal core's OpenTelemetry phpunit tests, and immediately see performa
 
 For more information on the phpunit side of things, see [the Drupal core change record](https://www.drupal.org/node/3366904).
 
-For more information [check the documentation](https://docs.google.com/document/d/1lIps5uDwF1sN6662K-J94eRpHBySXV6giMMXODnWezM/edit).
-
 ## Prerequisites:
 * [Install ddev](https://ddev.readthedocs.io/en/latest/users/install/ddev-installation/) if you haven't already.
 * Enable ddev on your local Drupal project.
