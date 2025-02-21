@@ -130,41 +130,13 @@
           },
           "editorMode": "code",
           "exemplar": true,
-          "expr": "histogram_quantile(0.1, (rate(traces_spanmetrics_latency_bucket{service=\"$test\", span_name=\"largestContentfulPaint\", service_version=\"$version\"}[1h])))",
+          "expr": "histogram_quantile(0.1, (rate(traces_spanmetrics_latency_bucket{service=\"$test\", span_name=\"largestContentfulPaint\", service_version=\"$version\"}[1m])))",
           "instant": false,
           "interval": "",
           "key": "Q-505f909c-1512-491a-b41c-c0d5731ef8ea-0",
-          "legendFormat": "LCP",
+          "legendFormat": "Largest Contentful Paint",
           "range": true,
           "refId": "A"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "prometheus"
-          },
-          "editorMode": "code",
-          "exemplar": false,
-          "expr": "histogram_quantile(0.1, (rate(traces_spanmetrics_latency_bucket{service=\"$test\", span_name=\"firstByte\", service_version=\"$version\"}[1h])))",
-          "instant": false,
-          "key": "Q-aa965e13-fe86-4b93-969a-67103cfb0de3-1",
-          "legendFormat": "TTFB",
-          "range": true,
-          "refId": "B"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "prometheus"
-          },
-          "editorMode": "code",
-          "exemplar": false,
-          "expr": "histogram_quantile(0.1, (rate(traces_spanmetrics_latency_bucket{service=\"$test\", span_name=\"firstContentfulPaint\", service_version=\"$version\"}[1h])))",
-          "instant": false,
-          "key": "Q-b1eca1af-d431-4c73-8675-10640c1bbec1-2",
-          "legendFormat": "FCP",
-          "range": true,
-          "refId": "C"
         }
       ],
       "title": "metrics",
