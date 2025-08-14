@@ -15,7 +15,7 @@ services:
 
   # And put them in an OTEL collector pipeline...
   otel-collector:
-    image: otel/opentelemetry-collector:0.61.0
+    image: otel/opentelemetry-collector:0.132.2
     container_name: ddev-${DDEV_SITENAME}-otel-collector
     command: [ "--config=/etc/otel-collector.yaml" ]
     labels:
