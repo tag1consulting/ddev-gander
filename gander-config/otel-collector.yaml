@@ -2,8 +2,12 @@
 receivers:
   otlp:
     protocols:
+      # Updates to image made otel-collector bind to localhost by default,
+      # This allows external access
       grpc:
+        endpoint: 0.0.0.0:4317
       http:
+        endpoint: 0.0.0.0:4318
 exporters:
   otlp:
     endpoint: tempo:4317
