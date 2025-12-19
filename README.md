@@ -29,7 +29,7 @@ For more information on the phpunit side of things, see [the Drupal core change 
 ## Prerequisites:
 * [Install ddev](https://ddev.readthedocs.io/en/latest/users/install/ddev-installation/) if you haven't already.
 * Enable ddev on your local Drupal project.
-* `composer require --dev drupal/core-dev` to enable phpunit
+* `composer require --dev drupal/core-dev` to install phpunit if isn't already
 * `ddev get ddev/ddev-selenium-standalone-chrome` to enable functional Javascript tests for DDEV. (`ddev/ddev-selenium-standalone-chrome` is a dependency of this add-on.)
 
 
@@ -42,6 +42,6 @@ used](https://www.drupal.org/docs/develop/using-composer/manage-dependencies)):
 * `ddev restart`
 * `ddev ssh`
 * `cd web/`
-* To run a single test: `phpunit -c core profiles/demo_umami/tests/src/FunctionalJavascript/OpenTelemetryNodePagePerformanceTest.php`
+* To run a single test: `phpunit -c core core/profiles/demo_umami/tests/src/FunctionalJavascript/OpenTelemetryNodePagePerformanceTest.php`
 * To run all Gander tests: `phpunit -c core --group OpenTelemetry`
 * Check the Grafana dashboard via: _http://\<projectname\>.ddev.site:3000/_
