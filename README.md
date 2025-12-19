@@ -29,7 +29,9 @@ For more information on the phpunit side of things, see [the Drupal core change 
 ## Prerequisites:
 * [Install ddev](https://ddev.readthedocs.io/en/latest/users/install/ddev-installation/) if you haven't already.
 * Enable ddev on your local Drupal project.
+* `composer require --dev drupal/core-dev` to enable phpunit
 * `ddev get ddev/ddev-selenium-standalone-chrome` to enable functional Javascript tests for DDEV. (`ddev/ddev-selenium-standalone-chrome` is a dependency of this add-on.)
+
 
 ## Getting started
 For more information and a quickstart guide, [check the documentation on Drupal.org](https://www.drupal.org/docs/develop/automated-testing/performance-tests).
