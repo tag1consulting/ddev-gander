@@ -1,18 +1,16 @@
 # Details about the install.yaml file are at https://ddev.readthedocs.io/en/latest/users/extend/additional-services/#sections-and-features-of-ddev-get-add-on-installyaml
 
 name: ddev-gander 
-
 dependencies:
   - ddev/ddev-selenium-standalone-chrome
+ddev_version_constraint: '>= v1.24.10'
 
 # pre_install_actions - list of actions to run before installing the addon.
 # Examples would be removing an extraneous docker volume,
 # or doing a sanity check for requirements.
 # DDEV environment variables can be interpolated into these actions
 pre_install_actions:
-  # Actions with #ddev-nodisplay will not show the execution of the action, but may show their output
 # - |
-  # #ddev-nodisplay
   #ddev-description:Check architecture type for incompatible arm64 type
   # if [ "$(arch)" = "arm64" -o "$(arch)" = "aarch64" ]; then
     # echo "This package does not work on arm64 machines";
@@ -21,8 +19,6 @@ pre_install_actions:
 
 # - "docker volume rm ddev-${DDEV_PROJECT}_solr 2>/dev/null || true"
 #- |
-#  # Using #ddev-nodisplay tells ddev to be quiet about this action and not show it or its output.
-#  #ddev-nodisplay
 #  #ddev-description:Remove solr volume
 #  if ! ( ddev debug capabilities 2>/dev/null | grep multiple-dockerfiles >/dev/null 2>&1 ) ; then
 #    echo "This add-on requires DDEV v1.19.4 or higher, please upgrade." && exit 2
@@ -77,7 +73,7 @@ global_files:
 post_install_actions:
 # - chmod +x ~/.ddev/commands/web/somecommand
 # - touch somefile.${GOOS}.${DDEV_WEBSERVER}
-# - perl -pi -e 's/oldstring/newstring/g' docker-compose.addon-template.yaml
+# - perl -pi -e 's/oldstring/newstring/g' docker-compose.ddev-gander.yaml
 
 # Shell actions that can be done during removal of the add-on
 removal_actions:

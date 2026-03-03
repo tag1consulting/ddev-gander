@@ -1,7 +1,15 @@
 setup() {
   set -eu -o pipefail
   export DIR="$( cd "$( dirname "$BATS_TEST_FILENAME" )" >/dev/null 2>&1 && pwd )/.."
+  export GITHUB_REPO=tag1consulting/ddev-gander
+  TEST_BREW_PREFIX="$(brew --prefix 2>/dev/null || true)"
+  export BATS_LIB_PATH="${BATS_LIB_PATH}:${TEST_BREW_PREFIX}/lib:/usr/lib/bats"
+  bats_load_library bats-assert
+  bats_load_library bats-file
+  bats_load_library bats-support
   export TESTDIR=~/tmp/test-gander
+  export DDEV_NONINTERACTIVE=true
+  export DDEV_NO_INSTRUMENTATION=true
   mkdir -p $TESTDIR
   export PROJNAME=test-gander
   export DDEV_NON_INTERACTIVE=true
@@ -20,26 +28,32 @@ health_checks() {
 
 teardown() {
   set -eu -o pipefail
-  cd ${TESTDIR} || ( printf "unable to cd to ${TESTDIR}\n" && exit 1 )
-  ddev delete -Oy ${PROJNAME} >/dev/null 2>&1
-  [ "${TESTDIR}" != "" ] && rm -rf ${TESTDIR} >/dev/null 2>&1 || true
+  ddev delete -Oy "${PROJNAME}" >/dev/null 2>&1
+  # Persist TESTDIR if running inside GitHub Actions. Useful for uploading test result artifacts
+  # See example at https://github.com/ddev/github-action-add-on-test#preserving-artifacts
+  if [ -n "${GITHUB_ENV:-}" ]; then
+    [ -e "${GITHUB_ENV:-}" ] && echo "TESTDIR=${HOME}/tmp/${PROJNAME}" >> "${GITHUB_ENV}"
+  else
+    [ "${TESTDIR}" != "" ] && rm -rf "${TESTDIR}"
+  fi
 }
 
 @test "install from directory" {
   set -eu -o pipefail
   cd ${TESTDIR}
-  echo "# ddev get ${DIR} with project ${PROJNAME} in ${TESTDIR} ($(pwd))" >&3
-  ddev get ${DIR}
+  echo "# ddev add-on gt ${DIR} with project ${PROJNAME} in ${TESTDIR} ($(pwd))" >&3
+  ddev add-on get ${DIR}
   ddev restart
   health_checks
 }
 
+# bats test_tags=release
 @test "install from release" {
   set -eu -o pipefail
-  cd ${TESTDIR} || ( printf "unable to cd to ${TESTDIR}\n" && exit 1 )
-  echo "# ddev get tag1consulting/ddev-gander with project ${PROJNAME} in ${TESTDIR} ($(pwd))" >&3
-  ddev get tag1consulting/ddev-gander
-  ddev restart >/dev/null
+  echo "# ddev add-on get ${GITHUB_REPO} with project ${PROJNAME} in $(pwd)" >&3
+  run ddev add-on get "${GITHUB_REPO}"
+  assert_success
+  run ddev restart -y
+  assert_success
   health_checks
 }
-
